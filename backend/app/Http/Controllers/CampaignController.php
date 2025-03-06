@@ -3,15 +3,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\MyDefined\UseCase\Master\CreateCampaignUseCase;
-
-use App\MyDefined\ValueObject\CampaignNameValueObject;
+use App\MyDefined\ValueObject\CampaignName1ValueObject;
+use App\MyDefined\ValueObject\CampaignName2ValueObject;
 use App\MyDefined\ValueObject\ClientCodeValueObject;
+use App\MyDefined\ValueObject\DeadlineValueObject;
 use App\MyDefined\ValueObject\DepartmentNameValueObject;
 use App\MyDefined\ValueObject\ManagerEmailValueObject;
-use App\MyDefined\ValueObject\ExecTimeValueObject;
 use App\MyDefined\ValueObject\OrderCategoryValueObject;
+use App\MyDefined\ValueObject\OrderDateValueObject;
 use App\MyDefined\ValueObject\OrderNumberValueObject;
-
+use App\MyDefined\ValueObject\SupplierOrderNumberValueObject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,20 +23,33 @@ class CampaignController extends Controller
         CreateCampaignUseCase $UseCase
     )
     {
-        $campaignName = CampaignNameValueObject::create($request->input('campaign_name'));
-        $orderDate = ExecTimeValueObject::create($request->input('order_date'));
-        $deadline = ExecTimeValueObject::create($request->input('deadline'));
+        $campaignName1 = CampaignName1ValueObject::create($request->input('campaign_name1'));
+        $campaignName2 = CampaignName2ValueObject::create($request->input('campaign_name2'));
+        $orderDate = OrderDateValueObject::create($request->input('order_date'));
+        $deadline = DeadlineValueObject::create($request->input('deadline'));
+        $supplierOrderNumber = SupplierOrderNumberValueObject::create('supplier_order_number');
         $clientCode = ClientCodeValueObject::create($request->input('client_code'));
         $department = DepartmentNameValueObject::create($request->input('department_name'));
-        $manager = ManagerEmailValueObject::create($request->input('manager_email'));
+        $sales = ManagerEmailValueObject::create($request->input('email_manager'));
+        $manager = ManagerEmailValueObject::create($request->input('email_manager'));
         $orderCategory = OrderCategoryValueObject::create($request->input('order_category'));
-        $orderNumbers = [];
-        foreach($request->input('order_numbers') as $orderNumber){
-            array_push($orderNumbers, OrderNumberValueObject::create($orderNumber));
-        }
+        $orderNumbers = collect($request->input('order_numbers'))->map(function($orderNumber){
+            return OrderNumberValueObject::create($orderNumber);
+        });
 
-        $result = $UseCase->execute($campaignName, $orderDate, $deadline, $clientCode, $department, 
-                                    $manager, $orderCategory, $orderNumbers);
+        $result = $UseCase->execute(
+            $campaignName1,
+            $campaignName2,
+            $orderDate,
+            $deadline,
+            $supplierOrderNumber,
+            $clientCode,
+            $department,
+            $sales,
+            $manager,
+            $orderCategory,
+            $orderNumbers
+        );
 
         return new JsonResponse($result, 200, [], JSON_UNESCAPED_UNICODE);
     }

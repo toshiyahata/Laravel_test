@@ -4,9 +4,9 @@ namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 
-class DepartmentNameValueObject extends ValueObject
+class SupplierOrderNumberValueObject extends ValueObject
 {
-    static $ITEM_NAME = '部門名';
+    static $ITEM_NAME = '先方注文番号';
 
     /**
      * @param string $value
@@ -20,7 +20,6 @@ class DepartmentNameValueObject extends ValueObject
 
     private function validate($msg = '')
     {
-        $msg .= $this->required();
         $msg .= $this->length(100);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;

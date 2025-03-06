@@ -4,9 +4,9 @@ namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 
-class ExecTimeValueObject extends ValueObject
+class CampaignName2ValueObject extends ValueObject
 {
-    static $ITEM_NAME = '処理日時';
+    static $ITEM_NAME = 'キャンペーン名2';
 
     /**
      * @param string $value
@@ -20,8 +20,7 @@ class ExecTimeValueObject extends ValueObject
 
     private function validate($msg = '')
     {
-        $msg .= $this->required();
-        $msg .= $this->datetime();
+        $msg .= $this->length(100);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }
