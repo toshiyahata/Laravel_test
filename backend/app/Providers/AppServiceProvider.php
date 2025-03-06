@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        
+        // User
+        $this->app->bind(\App\MyDefined\Repository\User\UserRepoInterface::class, \App\MyDefined\Repository\User\UserRepository::class);
     }
 
     /**

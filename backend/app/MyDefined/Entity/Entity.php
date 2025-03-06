@@ -42,72 +42,72 @@ class Entity{
         return $response;
     }
 
-    public final function setCreator(UserEntity $creator): void
-    {
-        $this->creatorId = $creator->id;
-        $this->creatorName = $creator->userName;
-        $this->createdAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
-        return;
-    }
+    // public final function setCreator(UserEntity $creator): void
+    // {
+    //     $this->creatorId = $creator->id;
+    //     $this->creatorName = $creator->userName;
+    //     $this->createdAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
+    //     return;
+    // }
 
-    public final function changeUpdater(UserEntity $updater): void
-    {
-        $this->updaterId = $updater->id;
-        $this->updaterName = $updater->userName;
-        $this->updatedAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
-        return;
-    }
+    // public final function changeUpdater(UserEntity $updater): void
+    // {
+    //     $this->updaterId = $updater->id;
+    //     $this->updaterName = $updater->userName;
+    //     $this->updatedAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
+    //     return;
+    // }
 
-    public final function changeDeleter(UserEntity $deleter): void
-    {
-        $this->deleterId = $deleter->id;
-        $this->deleterName = $deleter->userName;
-        $this->deletedAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
-        $this->isDeleted = IsDeletedValueObject::create(1);
-        return;
-    }
+    // public final function changeDeleter(UserEntity $deleter): void
+    // {
+    //     $this->deleterId = $deleter->id;
+    //     $this->deleterName = $deleter->userName;
+    //     $this->deletedAt = ExecTimeValueObject::create(Carbon::now()->format('Y-m-d H:i:s'));
+    //     $this->isDeleted = IsDeletedValueObject::create(1);
+    //     return;
+    // }
 
-    // Entity同士の依存関係不整合チェック
-    public final function dependsOn(...$entities): void
-    {
+    // // Entity同士の依存関係不整合チェック
+    // public final function dependsOn(...$entities): void
+    // {
 
-        $msg = '';
-        foreach($entities as $entity){
-            // 削除済みのEntityを参照していないかチェック
-            if($entity->isDeleted->v() === 1){
-                $msg .= $entity->id->getName() . ": " . $entity->id->v() . '<br>';
-            }
-        }
-        if($msg != ''){
-            throw new AlreadyDeletedErrorResponseException($msg);
-        }
-        return;
-    }
+    //     $msg = '';
+    //     foreach($entities as $entity){
+    //         // 削除済みのEntityを参照していないかチェック
+    //         if($entity->isDeleted->v() === 1){
+    //             $msg .= $entity->id->getName() . ": " . $entity->id->v() . '<br>';
+    //         }
+    //     }
+    //     if($msg != ''){
+    //         throw new AlreadyDeletedErrorResponseException($msg);
+    //     }
+    //     return;
+    // }
 
-    // Nullチェック
-    public final function requiredFields(...$fields): void
-    {
-        $msg = '';
-        foreach($fields as $field){
-            if(is_null($field->v()) or empty($field->v())){
-                $msg .= $field->getName() . '<br>';
-            }
-        }
-        if($msg != ''){
-            throw new RequiredValueErrorResponseException($msg);
-        }
+    // // Nullチェック
+    // public final function requiredFields(...$fields): void
+    // {
+    //     $msg = '';
+    //     foreach($fields as $field){
+    //         if(is_null($field->v()) or empty($field->v())){
+    //             $msg .= $field->getName() . '<br>';
+    //         }
+    //     }
+    //     if($msg != ''){
+    //         throw new RequiredValueErrorResponseException($msg);
+    //     }
         
-        return;
-    }
+    //     return;
+    // }
 
-    // 排他制御チェック
-    public final function checkExclusiveControl(): void
-    {
-        if($this->updatedAt->v() != request()->header('updated-at')){
-            throw new InvalidOperationErrorResponseException('この製品は他のユーザー: ' . $this->updaterName->v() . ' によって更新されています。');
-        }
-        return;
-    } 
+    // // 排他制御チェック
+    // public final function checkExclusiveControl(): void
+    // {
+    //     if($this->updatedAt->v() != request()->header('updated-at')){
+    //         throw new InvalidOperationErrorResponseException('この製品は他のユーザー: ' . $this->updaterName->v() . ' によって更新されています。');
+    //     }
+    //     return;
+    // } 
 
     // バリデーション
     // public final function validateFields(...$fields): void

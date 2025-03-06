@@ -1,8 +1,9 @@
 <?php
 
-namespace App\MyDefined\ValueObject;
+namespace App\MyDefined\ValueObject\Client;
 
 use App\Exceptions\InvalidValueErrorResponseException;
+use App\MyDefined\ValueObject\ValueObject;
 
 class ClientCodeValueObject extends ValueObject
 {

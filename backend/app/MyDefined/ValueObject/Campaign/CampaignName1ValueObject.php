@@ -1,8 +1,9 @@
 <?php
 
-namespace App\MyDefined\ValueObject;
+namespace App\MyDefined\ValueObject\Campaign;
 
 use App\Exceptions\InvalidValueErrorResponseException;
+use App\MyDefined\ValueObject\ValueObject;
 
 class CampaignName1ValueObject extends ValueObject
 {
