@@ -4,9 +4,9 @@ namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 
-class OrderDateValueObject extends ValueObject
+class DeadlineValueObject extends ValueObject
 {
-    static $ITEM_NAME = '受注日';
+    static $ITEM_NAME = '納期';
 
     /**
      * @param string $value
@@ -14,7 +14,6 @@ class OrderDateValueObject extends ValueObject
     public static function create(?string $value): self
     {
         $instance = new self($value);
-        $instance->validate();
         return $instance;
     }
 

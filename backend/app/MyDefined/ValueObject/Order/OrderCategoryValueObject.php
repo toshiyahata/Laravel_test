@@ -4,9 +4,9 @@ namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 
-class ManagerEmailValueObject extends ValueObject
+class OrderCategoryValueObject extends ValueObject
 {
-    static $ITEM_NAME = '営業担当者';
+    static $ITEM_NAME = '主要カテゴリ';
 
     /**
      * @param string $value
@@ -14,14 +14,13 @@ class ManagerEmailValueObject extends ValueObject
     public static function create(?string $value): self
     {
         $instance = new self($value);
-        $instance->validate();
         return $instance;
     }
 
     private function validate($msg = '')
     {
         $msg .= $this->required();
-
+        $msg .= $this->length(100);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

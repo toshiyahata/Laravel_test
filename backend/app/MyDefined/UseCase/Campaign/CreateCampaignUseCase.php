@@ -1,18 +1,19 @@
 <?php
 
-namespace APP\MyDefined\UseCase\Master;
+namespace APP\MyDefined\UseCase\Campaign;
 
-use App\MyDefined\Repository\Master\CampaignRepoInterface;
+use App\MyDefined\Repository\Campaign\CampaignRepoInterface;
+
 use App\MyDefined\ValueObject\CampaignName1ValueObject;
 use App\MyDefined\ValueObject\CampaignName2ValueObject;
 use App\MyDefined\ValueObject\ClientCodeValueObject;
+use App\MyDefined\ValueObject\ClientOrderNumberValueObject;
 use App\MyDefined\ValueObject\DeadlineValueObject;
 use App\MyDefined\ValueObject\DepartmentNameValueObject;
 use App\MyDefined\ValueObject\ManagerEmailValueObject;
 use App\MyDefined\ValueObject\OrderCategoryValueObject;
 use App\MyDefined\ValueObject\OrderDateValueObject;
 use App\MyDefined\ValueObject\OrderNumberValueObject;
-use App\MyDefined\ValueObject\SupplierOrderNumberValueObject;
 
 final class CreateCampaignUseCase
 {
@@ -32,7 +33,7 @@ final class CreateCampaignUseCase
         CampaignName2ValueObject $campaignName2,
         OrderDateValueObject $orderDate,
         DeadlineValueObject $deadline,
-        SupplierOrderNumberValueObject $supplierOrderNumber,
+        ClientOrderNumberValueObject $clientrOrderNumber,
         ClientCodeValueObject $clientCode,
         DepartmentNameValueObject $department,
         ManagerEmailValueObject $salesManager,
@@ -44,12 +45,10 @@ final class CreateCampaignUseCase
         // UserEntityの取得
 
         // ClientEntityの取得
-        // $client = ClientEntity::create($clientCode);
+
         // CampaignEntityの生成
 
         // 永続化処理(DB登録)
-
-
 
         return $orderNumbers;
     }

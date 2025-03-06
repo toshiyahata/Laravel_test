@@ -4,9 +4,9 @@ namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 
-class CampaignName2ValueObject extends ValueObject
+class CampaignName1ValueObject extends ValueObject
 {
-    static $ITEM_NAME = 'キャンペーン名2';
+    static $ITEM_NAME = 'キャンペーン名1';
 
     /**
      * @param string $value
@@ -14,13 +14,13 @@ class CampaignName2ValueObject extends ValueObject
     public static function create(?string $value): self
     {
         $instance = new self($value);
-        $instance->validate();
         return $instance;
     }
 
     private function validate($msg = '')
     {
-        $msg .= $this->length(100);
+        $msg .= $this->required();
+        $msg .= $this->length(50);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }
