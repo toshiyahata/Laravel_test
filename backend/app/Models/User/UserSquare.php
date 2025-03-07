@@ -15,7 +15,7 @@ class UserSquare extends Model
     public $timestamps = false;
     public $incrementing = false;
 
-    protected $connection = 'sqlsrv';
+    protected $connection = 'Square';
 
     public function __construct(array $attributes = [])
     {

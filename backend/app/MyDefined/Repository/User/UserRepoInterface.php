@@ -6,6 +6,6 @@ use App\MyDefined\Entity\User\UserEntity;
 use App\MyDefined\ValueObject\User\UserEmailValueObject;
 
 interface UserRepoInterface{
-    public function getUserInfo(UserEmailValueObject $email): UserEntity;
+    public function getUserbyEmail(UserEmailValueObject $email): UserEntity;
 }
 ?>

@@ -12,7 +12,7 @@ use App\MyDefined\ValueObject\User\UserIdValueObject;
 use App\MyDefined\ValueObject\User\UserNameValueObject;
 
 final class UserRepository implements UserRepoInterface{
-    public function getUserInfo(UserEmailValueObject $email): UserEntity
+    public function getUserbyEmail(UserEmailValueObject $email): UserEntity
     {
 
         $User = UserAMS::where('メールアカウント', $email->v())->first();

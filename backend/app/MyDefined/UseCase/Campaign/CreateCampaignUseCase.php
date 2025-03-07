@@ -45,7 +45,7 @@ final class CreateCampaignUseCase
     )
     {
         // UserEntityの取得
-        $user = $this->userRepository->getUserInfo($salesManager);
+        $user = $this->userRepository->getUserbyEmail($salesManager);
         // ClientEntityの取得
 
         // CampaignEntityの生成

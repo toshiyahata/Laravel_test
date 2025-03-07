@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAMS extends Model
 {
-    protected $table = 'link_ams.account-management-sys.dbo.T_users';
+    protected $table = 'dbo.T_users';
+
     protected $primaryKey = 'ユーザーID';
 
     protected $created_at = '作成日';
@@ -15,7 +16,7 @@ class UserAMS extends Model
     public $timestamps = 'FGC_CreateDate';
     public $incrementing = 'FGC_LastModifyDate';
 
-    protected $connection = 'sqlsrv';
+    protected $connection = 'FGC1';
 
     public function __construct(array $attributes = [])
     {

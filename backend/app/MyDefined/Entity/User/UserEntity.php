@@ -2,12 +2,12 @@
 
 namespace App\MyDefined\Entity\User;
 
-use App\MyDefined\Entity\Entity as EntityEntity;
+use App\MyDefined\Entity\Entity;
 use App\MyDefined\ValueObject\User\UserEmailValueObject;
 use App\MyDefined\ValueObject\User\UserIdValueObject;
 use App\MyDefined\ValueObject\User\UserNameValueObject;
 
-final class UserEntity extends EntityEntity{
+final class UserEntity extends Entity{
     public $userName;
     public $userEmail;
 
