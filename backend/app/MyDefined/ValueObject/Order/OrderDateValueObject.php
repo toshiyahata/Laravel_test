@@ -1,8 +1,9 @@
 <?php
 
-namespace App\MyDefined\ValueObject;
+namespace App\MyDefined\ValueObject\Order;
 
 use App\Exceptions\InvalidValueErrorResponseException;
+use App\MyDefined\ValueObject\ValueObject;
 
 class OrderDateValueObject extends ValueObject
 {

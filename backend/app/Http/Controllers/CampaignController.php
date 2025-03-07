@@ -4,17 +4,16 @@ use App\Http\Controllers\Controller;
 
 use App\MyDefined\UseCase\Campaign\CreateCampaignUseCase;
 
-use App\MyDefined\ValueObject\CampaignName1ValueObject;
-use App\MyDefined\ValueObject\CampaignName2ValueObject;
-use App\MyDefined\ValueObject\ClientCodeValueObject;
-use App\MyDefined\ValueObject\ClientOrderNumberValueObject;
-use App\MyDefined\ValueObject\DeadlineValueObject;
-use App\MyDefined\ValueObject\DepartmentNameValueObject;
-use App\MyDefined\ValueObject\ManagerEmailValueObject;
-use App\MyDefined\ValueObject\OrderCategoryValueObject;
-use App\MyDefined\ValueObject\OrderDateValueObject;
-use App\MyDefined\ValueObject\OrderNumberValueObject;
-
+use App\MyDefined\ValueObject\Campaign\CampaignName1ValueObject;
+use App\MyDefined\ValueObject\Campaign\CampaignName2ValueObject;
+use App\MyDefined\ValueObject\Client\ClientCodeValueObject;
+use App\MyDefined\ValueObject\Order\ClientOrderNumberValueObject;
+use App\MyDefined\ValueObject\Order\DeadlineValueObject;
+use App\MyDefined\ValueObject\Organization\DepartmentNameValueObject;
+use App\MyDefined\ValueObject\Order\OrderCategoryValueObject;
+use App\MyDefined\ValueObject\Order\OrderDateValueObject;
+use App\MyDefined\ValueObject\Order\OrderNumberValueObject;
+use App\MyDefined\ValueObject\User\UserEmailValueObject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -32,8 +31,8 @@ class CampaignController extends Controller
         $clientOrderNumber = ClientOrderNumberValueObject::create('client_order_number');
         $clientCode = ClientCodeValueObject::create($request->input('client_code'));
         $department = DepartmentNameValueObject::create($request->input('department_name'));
-        $sales = ManagerEmailValueObject::create($request->input('email_sales'));
-        $manager = ManagerEmailValueObject::create($request->input('email_manager'));
+        $sales = USerEmailValueObject::create($request->input('email_sales'));
+        $manager = UserEmailValueObject::create($request->input('email_manager'));
         $orderCategory = OrderCategoryValueObject::create($request->input('order_category'));
         $orderNumbers = collect($request->input('order_numbers'))->map(function($orderNumber){
             return OrderNumberValueObject::create($orderNumber);

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\MyDefined\ValueObject\Organization;
+namespace App\MyDefined\ValueObject\User;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class DepartmentNameValueObject extends ValueObject
+class UserEmailValueObject extends ValueObject
 {
-    static $ITEM_NAME = '部門名';
+    static $ITEM_NAME = 'メールアドレス';
 
     /**
      * @param string $value
@@ -21,7 +21,6 @@ class DepartmentNameValueObject extends ValueObject
     private function validate($msg = '')
     {
         $msg .= $this->required();
-        $msg .= $this->length(100);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }
