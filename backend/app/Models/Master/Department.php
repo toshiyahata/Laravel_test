@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserSquare extends Model
+class Department extends Model
 {
-    protected $table = 'dbo.M社員';
+    protected $table = 'dbo.M会計部門';
     protected $primaryKey = null;
 
     protected $created_at = '作成日';
@@ -21,5 +21,10 @@ class UserSquare extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
+    }
+
+    public function  locationName()
+    {
+        return $this->hasOne(Location::class, '事業所コード', '事業所コード');
     }
 }

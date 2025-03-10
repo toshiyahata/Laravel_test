@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserSquare extends Model
+class Location extends Model
 {
-    protected $table = 'dbo.M社員';
+    protected $table = 'dbo.VM事業所';
     protected $primaryKey = null;
 
     protected $created_at = '作成日';

@@ -15,17 +15,17 @@ final class UserRepository implements UserRepoInterface{
     public function getUserbyEmail(UserEmailValueObject $email): UserEntity
     {
 
-        $User = UserAMS::where('メールアカウント', $email->v())->first();
+        $User = UserAMS::where('メールアカウント', $email->v())
+            ->first();
         if(!$User){
             throw new DatabaseExistanceErrorResponseException('指定の' . $email->getName() . 'は存在しません。');
         }
 
         return UserEntity::reconstructFromRepository(
             UserIdValueObject::create($User->SquareID),
-            UserNameValueObject::create($User->姓 . $User->名),
+            UserNameValueObject::create($User->userSquare->社員名),
             UserEmailValueObject::create($User->メールアカウント)
         );
-        return $User;
     }
 }
 ?>

@@ -30,7 +30,7 @@ class CampaignController extends Controller
         $deadline = DeadlineValueObject::create($request->input('deadline'));
         $clientOrderNumber = ClientOrderNumberValueObject::create('client_order_number');
         $clientCode = ClientCodeValueObject::create($request->input('client_code'));
-        $department = DepartmentNameValueObject::create($request->input('department_name'));
+        $departmentName = DepartmentNameValueObject::create($request->input('department_name'));
         $sales = USerEmailValueObject::create($request->input('email_sales'));
         $manager = UserEmailValueObject::create($request->input('email_manager'));
         $orderCategory = OrderCategoryValueObject::create($request->input('order_category'));
@@ -45,7 +45,7 @@ class CampaignController extends Controller
             $deadline,
             $clientOrderNumber,
             $clientCode,
-            $department,
+            $departmentName,
             $sales,
             $manager,
             $orderCategory,

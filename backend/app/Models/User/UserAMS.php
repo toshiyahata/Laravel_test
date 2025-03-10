@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserAMS extends Model
 {
@@ -21,5 +22,10 @@ class UserAMS extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
+    }
+
+    public function  userSquare()
+    {
+        return $this->hasOne(UserSquare::class, '社員コード', 'SquareID');
     }
 }

@@ -3,7 +3,10 @@
 namespace APP\MyDefined\UseCase\Campaign;
 
 use App\MyDefined\Repository\Campaign\CampaignRepoInterface;
+use App\MyDefined\Repository\Master\ClientRepoInterface;
+use App\MyDefined\Repository\Organization\DepartmentRepoInterface;
 use App\MyDefined\Repository\User\UserRepoInterface;
+
 use App\MyDefined\ValueObject\Campaign\CampaignName1ValueObject;
 use App\MyDefined\ValueObject\Campaign\CampaignName2ValueObject;
 use App\MyDefined\ValueObject\Client\ClientCodeValueObject;
@@ -17,17 +20,22 @@ use App\MyDefined\ValueObject\Order\OrderNumberValueObject;
 
 final class CreateCampaignUseCase
 {
-    private $repository;
-    private $clientRepository;
+    private $campaignRepository;
     private $userRepository;
+    private $clientRepository;
+    private $departmentRepository;
 
     public function __construct(
-        // CampaignRepoInterface $repository
-        UserRepoInterface $userRepository
+        CampaignRepoInterface $campaignRepository,
+        UserRepoInterface $userRepository,
+        ClientRepoInterface $clientRepository,
+        DepartmentRepoInterface $departmentRepository
     )
     {
-        // $this->repository = $repository;   
+        $this->campaignRepository = $campaignRepository;   
         $this->userRepository = $userRepository;
+        $this->clientRepository = $clientRepository;
+        $this->departmentRepository = $departmentRepository;
     }
 
     public function execute(
@@ -37,21 +45,22 @@ final class CreateCampaignUseCase
         DeadlineValueObject $deadline,
         ClientOrderNumberValueObject $clientrOrderNumber,
         ClientCodeValueObject $clientCode,
-        DepartmentNameValueObject $department,
+        DepartmentNameValueObject $departmentName,
         UserEmailValueObject $salesManager,
         UserEmailValueObject $manager,
         OrderCategoryValueObject $orderCategory,
         $orderNumbers
     )
     {
-        // UserEntityの取得
-        $user = $this->userRepository->getUserbyEmail($salesManager);
-        // ClientEntityの取得
-
-        // CampaignEntityの生成
+        $user_sales = $this->userRepository->getUserbyEmail($salesManager);
+        $user_manager = $this->userRepository->getUserbyEmail($manager);
+        $client = $this->clientRepository->getClientbyClientCode($clientCode);
+        $department = $this->departmentRepository->getDepartmentbyName($departmentName);
+        // $orders = $this->campaignRepository->factoryOrder();
+        // $campaign = $this->campaignRepository->create();
 
         // 永続化処理(DB登録)
 
-        return $user;
+        return $department;
     }
 }
