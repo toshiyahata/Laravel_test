@@ -15,6 +15,18 @@ class AppServiceProvider extends ServiceProvider
     {
         // User
         $this->app->bind(\App\MyDefined\Repository\User\UserRepoInterface::class, \App\MyDefined\Repository\User\UserRepository::class);
+
+        // Client
+        $this->app->bind(\App\MyDefined\Repository\Master\ClientRepoInterface::class, \App\MyDefined\Repository\Master\ClientRepository::class);
+
+        // Department
+        $this->app->bind(\App\MyDefined\Repository\Organization\DepartmentRepoInterface::class, \App\MyDefined\Repository\Organization\DepartmentRepository::class);
+
+        // OrderCategory
+        $this->app->bind(\App\MyDefined\Repository\Master\OrderCategoryRepoInterface::class, \App\MyDefined\Repository\Master\OrderCategoryRepository::class);
+
+        // Campaign
+        $this->app->bind(\App\MyDefined\Repository\Campaign\CampaignRepoInterface::class, \App\MyDefined\Repository\Campaign\CampaignRepository::class);
     }
 
     /**

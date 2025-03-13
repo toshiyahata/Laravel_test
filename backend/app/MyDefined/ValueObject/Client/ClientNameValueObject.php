@@ -1,13 +1,13 @@
 <?php
 
-namespace App\MyDefined\ValueObject\Order;
+namespace App\MyDefined\ValueObject\Client;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class OrderCategoryValueObject extends ValueObject
+class ClientNameValueObject extends ValueObject
 {
-    static $ITEM_NAME = '主要カテゴリ';
+    static $ITEM_NAME = '取引先略称';
 
     /**
      * @param string $value
@@ -18,10 +18,12 @@ class OrderCategoryValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
-        $msg .= $this->required();
-        $msg .= $this->length(100);
+        if ($required) {
+            $msg .= $this->required();
+        }
+        $msg .= $this->length(30);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

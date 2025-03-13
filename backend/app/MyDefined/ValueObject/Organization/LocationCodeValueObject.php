@@ -1,13 +1,13 @@
 <?php
 
-namespace App\MyDefined\ValueObject\Order;
+namespace App\MyDefined\ValueObject\Organization;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class DeadlineValueObject extends ValueObject
+class LocationCodeValueObject extends ValueObject
 {
-    static $ITEM_NAME = '納期';
+    static $ITEM_NAME = '事業所コード';
 
     /**
      * @param string $value
@@ -17,13 +17,13 @@ class DeadlineValueObject extends ValueObject
         $instance = new self($value);
         return $instance;
     }
-
+    
     public function validate($required, $msg = '')
     {
         if ($required) {
             $msg .= $this->required();
         }
-        $msg .= $this->datetime();
+        $msg .= $this->length(3);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

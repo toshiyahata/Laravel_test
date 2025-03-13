@@ -84,7 +84,7 @@ class Entity{
     //     return;
     // }
 
-    // // Nullチェック
+    // Nullチェック
     // public final function requiredFields(...$fields): void
     // {
     //     $msg = '';
@@ -100,7 +100,7 @@ class Entity{
     //     return;
     // }
 
-    // // 排他制御チェック
+    // 排他制御チェック
     // public final function checkExclusiveControl(): void
     // {
     //     if($this->updatedAt->v() != request()->header('updated-at')){
@@ -110,19 +110,19 @@ class Entity{
     // } 
 
     // バリデーション
-    // public final function validateFields(...$fields): void
-    // {
-    //     $msg = '';
-    //     foreach($fields as $field){
-    //         if($field->v() != null){
-    //             $msg .= $field->validate() . '<br>';
-    //         }
-    //     }
-    //     if($msg != ''){
-    //         throw new InvalidValueErrorResponseException($msg);
-    //     }
+    public final function validateFields(...$fields): void
+    {
+        $msg = '';
+        foreach($fields as $field){
+            if($field->v() != null){
+                $msg .= $field->validate() . '<br>';
+            }
+        }
+        if($msg != ''){
+            throw new InvalidValueErrorResponseException($msg);
+        }
         
-    //     return;
-    // }
+        return;
+    }
 }
 ?>

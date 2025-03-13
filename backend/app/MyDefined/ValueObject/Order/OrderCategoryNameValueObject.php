@@ -5,9 +5,9 @@ namespace App\MyDefined\ValueObject\Order;
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class DeadlineValueObject extends ValueObject
+class OrderCategoryNameValueObject extends ValueObject
 {
-    static $ITEM_NAME = '納期';
+    static $ITEM_NAME = '主要カテゴリ名';
 
     /**
      * @param string $value
@@ -23,7 +23,7 @@ class DeadlineValueObject extends ValueObject
         if ($required) {
             $msg .= $this->required();
         }
-        $msg .= $this->datetime();
+        $msg .= $this->length(30);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

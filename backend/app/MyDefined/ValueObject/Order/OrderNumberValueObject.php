@@ -18,9 +18,11 @@ class OrderNumberValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
-        $msg .= $this->required();
+        if ($required) {
+            $msg .= $this->required();
+        }
         $msg .= $this->match('/^B[0-9]{8}$/', 'B + 数字8桁');
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
