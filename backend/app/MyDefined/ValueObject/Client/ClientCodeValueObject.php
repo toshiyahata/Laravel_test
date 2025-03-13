@@ -18,8 +18,11 @@ class ClientCodeValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
+        if ($required) {
+            $msg .= $this->required();
+        }
         $msg .= $this->match('/^[0-9]{5}-[0-9]{3}$/', '数字5桁 + ハイフン(-) + 数字3桁');
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;

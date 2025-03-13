@@ -3,7 +3,11 @@
 namespace APP\MyDefined\UseCase\Campaign;
 
 use App\MyDefined\Repository\Campaign\CampaignRepoInterface;
+use App\MyDefined\Repository\Master\ClientRepoInterface;
+use App\MyDefined\Repository\Organization\DepartmentRepoInterface;
 use App\MyDefined\Repository\User\UserRepoInterface;
+use App\MyDefined\Repository\Master\OrderCategoryRepoInterface;
+
 use App\MyDefined\ValueObject\Campaign\CampaignName1ValueObject;
 use App\MyDefined\ValueObject\Campaign\CampaignName2ValueObject;
 use App\MyDefined\ValueObject\Client\ClientCodeValueObject;
@@ -11,23 +15,35 @@ use App\MyDefined\ValueObject\Order\ClientOrderNumberValueObject;
 use App\MyDefined\ValueObject\Order\DeadlineValueObject;
 use App\MyDefined\ValueObject\Organization\DepartmentNameValueObject;
 use App\MyDefined\ValueObject\User\UserEmailValueObject;
-use App\MyDefined\ValueObject\Order\OrderCategoryValueObject;
+use App\MyDefined\ValueObject\Order\OrderCategoryNameValueObject;
 use App\MyDefined\ValueObject\Order\OrderDateValueObject;
 use App\MyDefined\ValueObject\Order\OrderNumberValueObject;
+use APP\MyDefined\DomainService\getCurrentDateTime;
+use App\MyDefined\Entity\Campaign\CampaignEntity;
+use App\MyDefined\ValueObject\SystemNameValueObject;
 
 final class CreateCampaignUseCase
 {
-    private $repository;
-    private $clientRepository;
+    private $campaignRepository;
+
     private $userRepository;
+    private $clientRepository;
+    private $departmentRepository;
+    private $orderCategoryRepository;
 
     public function __construct(
-        // CampaignRepoInterface $repository
-        UserRepoInterface $userRepository
+        CampaignRepoInterface $campaignRepository,
+        UserRepoInterface $userRepository,
+        ClientRepoInterface $clientRepository,
+        DepartmentRepoInterface $departmentRepository,
+        OrderCategoryRepoInterface $orderCategoryRepository
     )
     {
-        // $this->repository = $repository;   
+        $this->campaignRepository = $campaignRepository;   
         $this->userRepository = $userRepository;
+        $this->clientRepository = $clientRepository;
+        $this->departmentRepository = $departmentRepository;
+        $this->orderCategoryRepository = $orderCategoryRepository;
     }
 
     public function execute(
@@ -37,21 +53,39 @@ final class CreateCampaignUseCase
         DeadlineValueObject $deadline,
         ClientOrderNumberValueObject $clientrOrderNumber,
         ClientCodeValueObject $clientCode,
-        DepartmentNameValueObject $department,
+        DepartmentNameValueObject $departmentName,
         UserEmailValueObject $salesManager,
         UserEmailValueObject $manager,
-        OrderCategoryValueObject $orderCategory,
-        $orderNumbers
+        OrderCategoryNameValueObject $orderCategoryName,
+        SystemNameValueObject $systemName,
+        OrderNumberValueObject ...$orderNumbers
     )
     {
-        // UserEntityの取得
-        $user = $this->userRepository->getUserbyEmail($salesManager);
-        // ClientEntityの取得
+        $client = $this->clientRepository->getClientbyId($clientCode);
+        $department = $this->departmentRepository->getDepartmentbyName($departmentName);
+        $user_sales = $this->userRepository->getUserbyEmail($salesManager);
+        $user_manager = $this->userRepository->getUserbyEmail($manager);
+        $order_category_id = $this->orderCategoryRepository->getOrderCategoryName($orderCategoryName, $departmentName);
+        
+        $campaign = CampaignEntity::create(
+            $campaignName1,
+            $campaignName2,
+            $orderDate,
+            $deadline,
+            $client,
+            $clientrOrderNumber,
+            $department, 
+            $user_sales,
+            $user_manager,
+            $order_category_id,
+            $orderCategoryName,
+            $systemName,
+            ...$this->campaignRepository->getOrderbyId(...$orderNumbers)
+        );
 
-        // CampaignEntityの生成
+        $CPNo = $this->campaignRepository->store($campaign);
 
-        // 永続化処理(DB登録)
-
-        return $user;
+        return $CPNo;
     }
 }
+?>

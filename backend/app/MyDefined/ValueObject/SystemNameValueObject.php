@@ -1,13 +1,13 @@
 <?php
 
-namespace App\MyDefined\ValueObject\Order;
+namespace App\MyDefined\ValueObject;
 
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class DeadlineValueObject extends ValueObject
+class SystemNameValueObject extends ValueObject
 {
-    static $ITEM_NAME = '納期';
+    static $ITEM_NAME = 'システム名';
 
     /**
      * @param string $value
@@ -23,7 +23,7 @@ class DeadlineValueObject extends ValueObject
         if ($required) {
             $msg .= $this->required();
         }
-        $msg .= $this->datetime();
+        $msg .= $this->length(50);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

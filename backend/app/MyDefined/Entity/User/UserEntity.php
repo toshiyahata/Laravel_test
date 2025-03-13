@@ -8,6 +8,7 @@ use App\MyDefined\ValueObject\User\UserIdValueObject;
 use App\MyDefined\ValueObject\User\UserNameValueObject;
 
 final class UserEntity extends Entity{
+    public $userId;
     public $userName;
     public $userEmail;
 
@@ -22,7 +23,7 @@ final class UserEntity extends Entity{
         UserEmailValueObject $userEmail
     ): UserEntity {
         $selfEntity = new self();
-        $selfEntity->id = $userId;
+        $selfEntity->userId = $userId;
         $selfEntity->userName = $userName;
         $selfEntity->userEmail = $userEmail;
         return $selfEntity;

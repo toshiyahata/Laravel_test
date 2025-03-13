@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAMS extends Model
 {
-    protected $table = 'dbo.T_users';
+    protected $table = 'dbo.vw_user_data_exists';
 
     protected $primaryKey = 'ユーザーID';
 
@@ -21,5 +21,10 @@ class UserAMS extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
+    }
+
+    public function  userSquare()
+    {
+        return $this->hasOne(UserSquare::class, '社員コード', 'SquareID');
     }
 }

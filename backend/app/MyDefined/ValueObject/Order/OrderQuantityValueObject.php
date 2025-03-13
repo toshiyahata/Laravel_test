@@ -5,9 +5,9 @@ namespace App\MyDefined\ValueObject\Order;
 use App\Exceptions\InvalidValueErrorResponseException;
 use App\MyDefined\ValueObject\ValueObject;
 
-class DeadlineValueObject extends ValueObject
+class OrderQuantityValueObject extends ValueObject
 {
-    static $ITEM_NAME = '納期';
+    static $ITEM_NAME = '受注数量';
 
     /**
      * @param string $value
@@ -17,13 +17,11 @@ class DeadlineValueObject extends ValueObject
         $instance = new self($value);
         return $instance;
     }
-
     public function validate($required, $msg = '')
     {
         if ($required) {
             $msg .= $this->required();
         }
-        $msg .= $this->datetime();
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

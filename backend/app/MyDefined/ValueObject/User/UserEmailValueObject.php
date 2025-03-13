@@ -18,9 +18,11 @@ class UserEmailValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
-        $msg .= $this->required();
+        if ($required) {
+            $msg .= $this->required();
+        }
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

@@ -18,9 +18,12 @@ class ClientOrderNumberValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
-        $msg .= $this->length(100);
+        if ($required) {
+            $msg .= $this->required();
+        }
+        $msg .= $this->length(30);
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
     }

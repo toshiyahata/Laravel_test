@@ -18,9 +18,11 @@ class OrderDateValueObject extends ValueObject
         return $instance;
     }
 
-    private function validate($msg = '')
+    public function validate($required, $msg = '')
     {
-        $msg .= $this->required();
+        if ($required) {
+            $msg .= $this->required();
+        }
         $msg .= $this->datetime();
         if ($msg) throw new InvalidValueErrorResponseException($msg);
         return;
